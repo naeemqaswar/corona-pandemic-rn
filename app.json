@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Corona Feeds",
+    "name": "Corona Pendemic",
     "slug": "CoronaCounter",
     "platforms": [
       "ios",
@@ -11,7 +11,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-image-x.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

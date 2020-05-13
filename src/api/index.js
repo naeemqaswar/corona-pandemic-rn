@@ -3,7 +3,7 @@ import * as uri from './URIs';
 
 export const fetchAll = (callback) => {
 
-    GET(uri.ALL)
+    return GET(uri.ALL)
         .then((response) => {
             // console.log('fetchAll:', response);
 
@@ -18,7 +18,7 @@ export const fetchAll = (callback) => {
 
 export const fetchCountries = (callback) => {
 
-    GET(uri.COUNTRIES)
+    return GET(uri.COUNTRIES)
         .then((response) => {
             // console.log('fetchCountries:', response);
 

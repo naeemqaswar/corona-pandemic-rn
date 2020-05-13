@@ -9,10 +9,11 @@ import { fetchAll, fetchCountries } from "../api";
 import { colors, images } from "../config";
 import { Storage } from "../library/helpers";
 import { numWithCommas } from "../library/Utils";
+import { DataContext } from '../context/DataContext';
 
-import {DataContext} from '../context/DataContext';
+import Loader from "../components/Loader";
 import Picker from "../components/Picker";
-import {MainCounter, MajorCounters, CounterSection} from "../components/Home";
+import { MainCounter, MajorCounters, CounterSection } from "../components/Home";
 
 // const Picker = lazy(() => import("../components/Picker"));
 
@@ -38,6 +39,8 @@ class Home extends React.PureComponent {
 		countryOptions: [],
 		showCountrySelection: false,
 	}
+
+	componentDidMount(){}
 	
 	getCountryOptionsIndex = code => (code && this.context.countryOptions.length) > 0 ? this.context.countryOptions.map(e => e.code).indexOf(code):0;
 	
@@ -46,7 +49,7 @@ class Home extends React.PureComponent {
         return <View><Text>Unable to process request</Text></View>;
 	};
 
-	_countryListPopup = () => {
+	_regionSelectionPopup = () => {
 
 		const {region, countryOptions, showCountrySelection, toggleRegionSelector, changeCountry} = this.context;
 
@@ -63,11 +66,15 @@ class Home extends React.PureComponent {
 
 	_renderContent() {
 
-		const { updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = this.context.region;
+		const {loading, region, repError} = this.context;
+
+		if(repError === true) return this._showError();
+		
+		if(Object.keys(region).length === 0) return null;
+
+		const { updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = region;
 
 		// console.log('this.context.region', this.context.region);
-
-		console.log('this.context.region', this.context.region);
 
 		let _majorCounters = {
 			recovered: numWithCommas(recovered), 
@@ -119,13 +126,14 @@ class Home extends React.PureComponent {
 			<CounterSection key={index} head={head} subHead={subHead} icon={icon} list={counters}/>
 		));
 
+		// TODO: Add last updated text at bottom of screen
 		return <View style={styles.container}>
 			<MainCounter value={numWithCommas(cases) } />
 			<MajorCounters counters={_majorCounters} />
 			<View style={{marginTop: 25}}>
 				{_counterSections}
 			</View>
-			{this._countryListPopup()}
+			{this._regionSelectionPopup()}
 		</View>;
 	}
 
@@ -133,11 +141,8 @@ class Home extends React.PureComponent {
 
 		const {loading, region, repError} = this.context;
 
-        if(repError === true) return this._showError();
-
-        if(loading || Object.keys(region).length === 0) return <Text>Loading...</Text>;
-
 		return <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+			<Loader visible={loading}/>
 			{this._renderContent()}
 		</ScrollView>
 	}

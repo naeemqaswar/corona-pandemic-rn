@@ -1,8 +1,12 @@
 import React, { Component, createContext } from 'react';
 import { Text, View } from 'react-native';
+import {AppLoading, SplashScreen} from 'expo';
+import { Asset } from 'expo-asset';
 
 import { fetchAll, fetchCountries } from "../api";
+import { images } from "../config";
 import { Storage } from "../library/helpers";
+import { objectToArray } from "../library/Utils";
 
 export const DataContext = createContext();
 
@@ -15,7 +19,7 @@ const defaultRegion = {
 export default class DataContextProvider extends Component {
 
 	state = {
-        loading: true,
+        loading: false,
 		repError: false,
 		globalData: {},
 		region: {},
@@ -26,28 +30,50 @@ export default class DataContextProvider extends Component {
 		showCountrySelection: false,
     }
 
-	componentDidMount(){
+	async componentDidMount(){
+		SplashScreen.preventAutoHide();
 
         this._toggleRegionSelector = this._toggleRegionSelector.bind(this);
         this._refreshContent = this._refreshContent.bind(this);
 
-		this._appBootstrap();
+		await this._appBootstrap();
 	}
  
-	_appBootstrap = async () => {
+	async _appBootstrap() {
 		
 		// Loading region info to State
 		this.setState({savedRegion: await Storage.get('region')});
-        
-        this._fetchGlobalData();
+		
+		await this._fetchContent();
+
+		// Cashing all image resources
+		let _imageResources = objectToArray(images);
+		await _imageResources.map(image => {
+			return Asset.fromModule(image).downloadAsync();
+		});
+		
+		// Hiding Splash Screen
+		SplashScreen.hide();
 	};
 
+	async _fetchContent() {
+
+		await this._fetchGlobalData();
+        
+		await this._getCountryData();
+	}
+
+	// TODO: Handle all requests with promise.all 
 	_fetchGlobalData = () => {
 
-		fetchAll((error, response) => {
+		return fetchAll((error, response) => {
 			// console.log('fetchAll response:', response);
             
-			if(error === true) { this.setState({repError: true}); return false; }
+			if(error === true) { 
+
+				this.setState({repError: true});
+				return false;
+			 }
 
 			let _globalData = {...defaultRegion, ...response};
 			let _regionUpdate = { globalData: _globalData };
@@ -56,17 +82,19 @@ export default class DataContextProvider extends Component {
 			if(!this.state.savedRegion || this.state.savedRegion === defaultRegion.iso) _regionUpdate['region'] = _globalData;
 			
 			this.setState(_regionUpdate);
-        
-            this._getCountryData();
         });
 	}
 
 	_getCountryData = () => {
 
-		fetchCountries((error, response) => {
-            // console.log('fetchCountries response:', response);
+		return fetchCountries((error, response) => {
+			// console.log('fetchCountries response:', response);
             
-			if(error === true) { return false; }
+			if(error === true) { 
+				
+				this.setState({repError: true});
+				return false;
+			 }
 
 			if(response.length) this._organizeCountryData(response);
         });
@@ -115,12 +143,14 @@ export default class DataContextProvider extends Component {
             ..._organizedData,
             loading: false,
         });
-    };
+	};
 
-    _refreshContent(){
+    async _refreshContent(){
         this.setState({loading: true});
 
-        this._fetchGlobalData();
+		await this._fetchContent();
+		
+        this.setState({loading: false});
     }
 
 	_handleCountryChange = (countryCode) => {
