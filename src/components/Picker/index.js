@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { View, Text, Modal, Image, StyleSheet, ScrollView, FlatList, SafeAreaView, TouchableWithoutFeedback } from 'react-native'
 
 import { Ionicons } from '@expo/vector-icons';
@@ -16,7 +16,14 @@ const Picker = (props) => {
 
     const {display, close, options, selected = 0, onSelection, mainColor} = props;
 
-    useEffect(()=>{}, []);
+    const [listingOptions, setListingOptions] = useState(options);
+
+    useEffect(()=>{
+        // Exclude Selected
+        setListingOptions(options.filter((item, index) => index !== selected ));
+        // console.log('listingOptions', listingOptions);
+        // console.log('options', options);
+    }, [selected]);
 
     const getCountryCode = ({code, name}) => code ? code: name;
 
@@ -25,10 +32,10 @@ const Picker = (props) => {
     </View>;
 
     // TODO: Implement Selected item Feature
-    const pickerItem = ({index, item}) => {
+    const pickerItem = ({item}, isSelected = false) => {
         const {code, name, flag} = item;
 
-        let _itemSelected = index === selected;
+        let _itemSelected = isSelected;
         let _countryCode = getCountryCode(item);
 
         const _itemStyles = [styles.pickerItem, {height: ITEM_HEIGHT}];
@@ -59,11 +66,11 @@ const Picker = (props) => {
         </View>;
 
         let _itemContentWrapped = <View style={styles.pickerItemWrapper}>{_itemContent}</View>
-        if(_itemSelected){
-            _itemContentWrapped = <ElevatedView style={styles.pickerItemWrapper} elevation={0}>
-                {_itemContent}
-            </ElevatedView>
-        }
+        // if(_itemSelected){
+        //     _itemContentWrapped = <ElevatedView style={styles.pickerItemWrapper} elevation={0}>
+        //         {_itemContent}
+        //     </ElevatedView>
+        // }
 
         return <TouchableWithoutFeedback key={_countryCode} onPress={() => onSelection(_countryCode)}>
             {_itemContentWrapped}
@@ -79,7 +86,7 @@ const Picker = (props) => {
 
         return <View style={styles.pickerItemSelectedContainer}>
             <Text style={[styles.groupTitle, {marginBottom: 10}]}>Selected</Text>
-            {pickerItem({index: selected, item: _selectedOption})}
+            {pickerItem({item: _selectedOption}, true)}
             <Text style={[styles.groupTitle, {marginTop: 20,}]}>All Regions</Text>
         </View>;
     };
@@ -93,13 +100,9 @@ const Picker = (props) => {
                 <FlatList
                     ref={ ref => listRef = ref }
                     persistentScrollbar={true}
-                    data={options}
+                    data={listingOptions}
                     ListHeaderComponent={renderSelected()}
-                    renderItem={ item => {
-                        // console.log('item:', item);
-
-                        return item.index !== selected ? pickerItem(item) : null;
-                    }}
+                    renderItem={pickerItem}
                     keyExtractor={getCountryCode}
                     ItemSeparatorComponent={itemSeparator}
                     getItemLayout={(data, index) => ({length: ITEM_HEIGHT, offset: (ITEM_HEIGHT + ITEM_SEPARATOR_HEIGHT) * index, index})}

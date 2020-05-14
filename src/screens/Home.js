@@ -56,13 +56,25 @@ class Home extends React.PureComponent {
 		// Getting selected country's index
 		let _selectedCountryIndex = Object.keys(region).length > 0 ? this.getCountryOptionsIndex(region.iso):0;
 
-		return <Picker options={countryOptions} selected={_selectedCountryIndex} onSelection={changeCountry} display={showCountrySelection} close={() => toggleRegionSelector(false)} mainColor={colors.main} />;
-
-		// TODO: Test and re-implement component Lazy loading
-		return <Suspense fallback={<View><Text>Loading...</Text></View>}>
-			<Picker options={countryOptions} selection={this._handleCountryChange} scrollTo={100} display={showCountrySelection} close={() => this.setState({showCountrySelection: false})}/>
-		</Suspense>
+		return <Picker 
+			options={countryOptions} 
+			selected={_selectedCountryIndex} 
+			onSelection={changeCountry} 
+			display={showCountrySelection} close={() => toggleRegionSelector(false)} 
+			mainColor={colors.main} 
+		/>;
 	};
+
+	_lastUpdatedText(timestamp) {
+
+		if(!timestamp) return null;
+
+		let _updateDateTime = new Date(timestamp).toUTCString();
+
+		return <View style={styles.lastUpdatedWrapper}>
+			<Text style={styles.lastUpdatedText}>Last updated: {_updateDateTime}</Text>
+		</View>
+	}
 
 	_renderContent() {
 
@@ -134,6 +146,7 @@ class Home extends React.PureComponent {
 				{_counterSections}
 			</View>
 			{this._regionSelectionPopup()}
+			{this._lastUpdatedText(updated)}
 		</View>;
 	}
 
@@ -165,5 +178,13 @@ const styles = StyleSheet.create({
 		width: '80%',
 		height: 70,
 		backgroundColor: 'white'
+	},
+	lastUpdatedWrapper:{
+		alignItems: 'center',
+		paddingBottom: 10,
+	},
+	lastUpdatedText:{
+		fontSize: 13,
+		color: '#9c9c9c',
 	},
 });
