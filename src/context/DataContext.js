@@ -44,13 +44,15 @@ export default class DataContextProvider extends Component {
 		// Loading region info to State
 		this.setState({savedRegion: await Storage.get('region')});
 		
-		await this._fetchContent();
+		// Fetching all API content
+		const _fetchApiContent = await this._fetchContent();
 
 		// Cashing all image resources
-		let _imageResources = objectToArray(images);
-		await _imageResources.map(image => {
+		const _allImageResources = objectToArray(images).map(image => {
 			return Asset.fromModule(image).downloadAsync();
 		});
+
+		await Promise.all([_fetchApiContent, _allImageResources]);
 		
 		// Hiding Splash Screen
 		SplashScreen.hide();
