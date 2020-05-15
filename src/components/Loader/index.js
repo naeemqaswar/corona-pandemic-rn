@@ -1,27 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-import AnimatedLoader from "react-native-animated-loader";
+import { View, Text, StyleSheet, Image, Modal } from 'react-native';
 
 const Loader = (props) => {
 
     const {visible} = props;
 
-    return <AnimatedLoader
-        visible={visible}
-        // overlayColor="rgba(255,255,255,0.75)"
-        overlayColor="#fff"
-        source={require("./loader.json")}
-        animationStyle={styles.lottie}
-        speed={1}
-    />;
+    return <Modal
+      animationType="fade"
+      transparent={true}
+      visible={visible}
+      onRequestClose={() => {}}
+    >
+      <View style={styles.container}>
+        <View style={styles.overlay}></View>
+        <View style={styles.loaderWrapper}>
+          <Image
+            style={styles.loader}
+            resizeMode="cover"
+            source={require('../../../assets/loader.gif')}
+          />
+        </View>
+      </View>
+    </Modal>;
 }
 
 export default Loader;
 
 const styles = StyleSheet.create({
-    lottie: {
-      width: 400,
-      height: 400
+    container: {
+      flex: 1, 
+      justifyContent: 'center', 
+      alignContent: 'center',
+    },
+    overlay: {
+      backgroundColor: 'rgba(255,255,255,0.75)',
+      // backgroundColor: '#fff',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    },
+    loaderWrapper: {
+      justifyContent: 'center', 
+      alignContent: 'center',
+    },
+    loader: {
+      alignSelf: 'center',
+      width: 150,
+      height: 150
     }
   });
