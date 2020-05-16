@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Corona Pandemic",
-    "slug": "CoronaCounter",
+    "slug": "CoronaPandemic",
     "platforms": [
       "ios",
       "android",
@@ -21,8 +21,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.nqaswar.covid19pendemic",
+      "versionCode": 1
+    },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.nqaswar.covid19pendemic",
+      "buildNumber": "1.0.0",
+      "supportsTablet": false
     }
   }
 }
