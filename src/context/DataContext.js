@@ -8,7 +8,19 @@ import { images } from "../config";
 import { Storage } from "../library/helpers";
 import { objectToArray } from "../library/Utils";
 
-export const DataContext = createContext();
+const contextDefaultValues = {
+	loading: false,
+	repError: false,
+	globalData: {},
+	region: {},
+	defaultRegion,
+	savedRegion: "",
+	countries: [],
+	countryOptions: [],
+	showCountrySelection: false,
+};
+
+export const DataContext = createContext(contextDefaultValues);
 
 const defaultRegion = {
 	iso: 'global',
@@ -19,19 +31,11 @@ const defaultRegion = {
 export default class DataContextProvider extends Component {
 
 	state = {
-        loading: false,
-		repError: false,
-		globalData: {},
-		region: {},
-		defaultRegion,
-		savedRegion: "",
-		countries: [],
-		countryOptions: [],
-		showCountrySelection: false,
+        ...contextDefaultValues,
     }
 
 	async componentDidMount(){
-		SplashScreen.preventAutoHide();
+		// SplashScreen.preventAutoHide();
 
         this._toggleRegionSelector = this._toggleRegionSelector.bind(this);
         this._refreshContent = this._refreshContent.bind(this);
@@ -55,7 +59,7 @@ export default class DataContextProvider extends Component {
 		await Promise.all([_fetchApiContent, _allImageResources]);
 		
 		// Hiding Splash Screen
-		SplashScreen.hide();
+		// SplashScreen.hide();
 	};
 
 	async _fetchContent() {

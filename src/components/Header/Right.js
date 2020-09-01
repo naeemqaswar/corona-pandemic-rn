@@ -11,6 +11,7 @@ const Right = (props) => {
     const {region, defaultRegion, toggleRegionSelector, refreshContent} = useContext(DataContext);
 
     const _renderButton = (content, click) => {
+
         return <TouchableWithoutFeedback onPress={click}>
             <View style={styles.buttonWrapper}>
                 {content}
@@ -19,6 +20,8 @@ const Right = (props) => {
     }
 
     const regionBtnContent = () => {
+        if(!region) return null;
+
         const {iso, countryInfo} = region;
 
         let _regionContent = <Ionicons name="md-globe" size={37} color={colors.secondary} />;

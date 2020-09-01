@@ -152,7 +152,9 @@ class Home extends React.PureComponent {
 
 	render() {
 
-		const {loading, region, repError} = this.context;
+		if(!this.context) return null;
+
+		const {loading = false} = this.context;
 
 		return <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 			<Loader visible={loading}/>

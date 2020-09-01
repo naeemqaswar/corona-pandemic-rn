@@ -19,8 +19,10 @@ const Picker = (props) => {
     const [listingOptions, setListingOptions] = useState(options);
 
     useEffect(()=>{
+        
         // Excluding Selected Region
         setListingOptions(options.filter((item, index) => index !== selected ));
+
     }, [selected]);
 
     const getCountryCode = ({code, name}) => code ? code: name;
