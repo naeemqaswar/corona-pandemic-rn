@@ -8,6 +8,12 @@ import { images } from "../config";
 import { Storage } from "../library/helpers";
 import { objectToArray } from "../library/Utils";
 
+const defaultRegion = {
+	iso: 'global',
+	name: 'Global',
+	flag: 'https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg',
+};
+
 const contextDefaultValues = {
 	loading: false,
 	repError: false,
@@ -22,12 +28,6 @@ const contextDefaultValues = {
 
 export const DataContext = createContext(contextDefaultValues);
 
-const defaultRegion = {
-	iso: 'global',
-	name: 'Global',
-	flag: 'https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg',
-};
-
 export default class DataContextProvider extends Component {
 
 	state = {
@@ -38,15 +38,17 @@ export default class DataContextProvider extends Component {
 		// SplashScreen.preventAutoHide();
 
         this._toggleRegionSelector = this._toggleRegionSelector.bind(this);
-        this._refreshContent = this._refreshContent.bind(this);
+		this._refreshContent = this._refreshContent.bind(this);
 
 		await this._appBootstrap();
 	}
  
 	async _appBootstrap() {
-		
+
 		// Loading region info to State
-		this.setState({savedRegion: await Storage.get('region')});
+		let _storedRegion = await Storage.get('region');
+		
+		this.setState({savedRegion: _storedRegion ? JSON.parse(_storedRegion):""});
 		
 		// Fetching all API content
 		const _fetchApiContent = await this._fetchContent();
@@ -141,7 +143,7 @@ export default class DataContextProvider extends Component {
 		if(!this.state.region || Object.keys(this.state.region).length === 0) {
 
 			// Setting country as region, if not available set to Global Data
-			let _countryInfo = _countriesList[this.state.savedRegion];
+			let _countryInfo = this.state.savedRegion;
 			_organizedData['region'] = _countryInfo ? _countryInfo:this.state.globalData;
 		};
 
@@ -169,7 +171,7 @@ export default class DataContextProvider extends Component {
 		let _selectedCountry = countryCode == defaultRegion.iso ? globalData:countries[countryCode];
 
 		// Saving country code to local memory
-		Storage.save('region', countryCode);
+		Storage.save('region', _selectedCountry, true);
 
 		this.setState({
 			region: _selectedCountry,		// Setting selected country data

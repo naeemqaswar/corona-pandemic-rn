@@ -20,13 +20,13 @@ const Right = (props) => {
     }
 
     const regionBtnContent = () => {
-        if(!region) return null;
+        if(!region || Object.keys(region).length == 0) return null;
 
         const {iso, countryInfo} = region;
 
         let _regionContent = <Ionicons name="md-globe" size={37} color={colors.secondary} />;
         
-        if(countryInfo && iso != defaultRegion.iso){
+        if(countryInfo && (iso != defaultRegion.iso)){
             _regionContent = <Image style={styles.regionFlag} source={{uri: countryInfo.flag}} />;
         }
 

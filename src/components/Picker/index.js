@@ -14,15 +14,19 @@ const ITEM_SEPARATOR_HEIGHT = 1;
 const Picker = (props) => {
     let listRef;
 
-    const {display, close, options, selected = 0, onSelection, mainColor} = props;
+    const {display, close, options, selected = 0, onSelection, mainColor, loading} = props;
 
     const [listingOptions, setListingOptions] = useState(options);
 
     useEffect(()=>{
-        
-        // Excluding Selected Region
-        setListingOptions(options.filter((item, index) => index !== selected ));
+        setListingOptions(options);
+    }, [options.length]);
 
+    useEffect(()=>{
+        // Excluding Selected Region
+        if(options.length > 0){
+            setListingOptions(options.filter((item, index) => index !== selected ));
+        }
     }, [selected]);
 
     const getCountryCode = ({code, name}) => code ? code: name;

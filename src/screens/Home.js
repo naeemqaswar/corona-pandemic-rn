@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { StyleSheet, Text, View, Modal, TouchableOpacity, ImageBackground, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Modal, TouchableOpacity, ImageBackground, ScrollView, Dimensions, Image } from "react-native";
 
 import { SplashScreen } from 'expo';
 import ElevatedView from 'react-native-elevated-view';
@@ -13,7 +13,10 @@ import { DataContext } from '../context/DataContext';
 
 import Loader from "../components/Loader";
 import Picker from "../components/Picker";
+import ErrorScreen from "../components/ErrorScreen";
 import { MainCounter, MajorCounters, CounterSection } from "../components/Home";
+
+const {height, width} = Dimensions.get('window');
 
 // const Picker = lazy(() => import("../components/Picker"));
 
@@ -26,7 +29,7 @@ const defaultRegion = {
 // TODO: Show content Loader until Region value is not set
 // TODO: Stop Picker component re-rendering on Tap (Open)
 // TODO: Implement PURE Component
-class Home extends React.PureComponent {
+class Home extends React.Component {
 
 	static contextType = DataContext;	// Referencing context value
 
@@ -43,25 +46,27 @@ class Home extends React.PureComponent {
 	componentDidMount(){}
 	
 	getCountryOptionsIndex = code => (code && this.context.countryOptions.length) > 0 ? this.context.countryOptions.map(e => e.code).indexOf(code):0;
-	
-	// Error message for bad request
-    _showError = () => {
-        return <View><Text>Unable to process request</Text></View>;
-	};
 
 	_regionSelectionPopup = () => {
 
-		const {region, countryOptions, showCountrySelection, toggleRegionSelector, changeCountry} = this.context;
+		const {region, countryOptions, showCountrySelection, toggleRegionSelector, changeCountry, loading} = this.context;
 
+		// let _regionIsoX = 'iso' in region ? region.iso:region;
+		// console.log('_regionIsoX:', _regionIsoX);
+
+		// let _regionIso = 'ALB';
 		// Getting selected country's index
 		let _selectedCountryIndex = Object.keys(region).length > 0 ? this.getCountryOptionsIndex(region.iso):0;
+		// console.log('countryOptions',countryOptions);
 
-		return <Picker 
-			options={countryOptions} 
-			selected={_selectedCountryIndex} 
-			onSelection={changeCountry} 
-			display={showCountrySelection} close={() => toggleRegionSelector(false)} 
-			mainColor={colors.main} 
+		return <Picker
+			options={countryOptions}
+			selected={_selectedCountryIndex}
+			onSelection={changeCountry}
+			display={showCountrySelection}
+			close={() => toggleRegionSelector(false)}
+			mainColor={colors.main}
+			loading={loading}
 		/>;
 	};
 
@@ -76,10 +81,22 @@ class Home extends React.PureComponent {
 		</View>
 	}
 
+	// Error message for bad request
+    _showError = (message) => {
+
+		const {refreshContent} = this.context;
+
+		return <ErrorScreen 
+			message={message} 
+			defaultAction={refreshContent} 
+		/>;
+	};
+
 	_renderContent() {
 
 		const {loading, region, repError} = this.context;
 
+		// return this._showError();
 		if(repError === true) return this._showError();
 		
 		if(Object.keys(region).length === 0) return null;
@@ -156,9 +173,11 @@ class Home extends React.PureComponent {
 
 		const {loading = false} = this.context;
 
-		return <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-			<Loader visible={loading}/>
-			{this._renderContent()}
+		return <ScrollView 
+			style={styles.container} 
+			showsVerticalScrollIndicator={false}>
+				<Loader visible={loading}/>
+				{this._renderContent()}
 		</ScrollView>
 	}
 };
@@ -174,7 +193,6 @@ const styles = StyleSheet.create({
 		// backgroundColor: '#e2e1e0',
 		alignItems: 'center',
 		marginTop: -40,
-		// borderWidth: 1,
 	},
 	stayElevated: {
 		width: '80%',

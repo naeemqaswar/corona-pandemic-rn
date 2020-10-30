@@ -12,8 +12,13 @@ const backgrounds = {
 	coronaMap: require(assetsPath + "background-map.jpg"),
 };
 
+const misc = {
+	errorScreen: require(assetsPath + "error-screen-image.png"),
+};
+
 export default {
 	...app,
 	...loaders,
 	...backgrounds,
+	...misc,
 };
