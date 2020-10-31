@@ -1,9 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View, Modal, TouchableOpacity, ImageBackground, ScrollView, Dimensions, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 import { colors, images } from "../config";
-
-const {height, width} = Dimensions.get('window');
 
 export default function ErrorScreen(props) {
 
@@ -35,7 +33,6 @@ export default function ErrorScreen(props) {
 const styles = StyleSheet.create({
 	container:{
 		flex: 1,
-		height: height - 100,
 		justifyContent: 'center',
 		alignItems:'center',
 		backgroundColor: '#fff',

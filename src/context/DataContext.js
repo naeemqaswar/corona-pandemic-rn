@@ -35,7 +35,7 @@ export default class DataContextProvider extends Component {
     }
 
 	async componentDidMount(){
-		// SplashScreen.preventAutoHide();
+		SplashScreen.preventAutoHide();
 
         this._toggleRegionSelector = this._toggleRegionSelector.bind(this);
 		this._refreshContent = this._refreshContent.bind(this);
@@ -61,7 +61,7 @@ export default class DataContextProvider extends Component {
 		await Promise.all([_fetchApiContent, _allImageResources]);
 		
 		// Hiding Splash Screen
-		// SplashScreen.hide();
+		SplashScreen.hide();
 	};
 
 	async _fetchContent() {
@@ -78,7 +78,6 @@ export default class DataContextProvider extends Component {
 			// console.log('fetchAll response:', response);
             
 			if(error === true) { 
-
 				this.setState({repError: true});
 				return false;
 			 }

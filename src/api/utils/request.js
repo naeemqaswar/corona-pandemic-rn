@@ -4,7 +4,10 @@ const showRequestLogs = false;
 
 const request = async function (options, isHeader = false) {
 
-    const baseURL = 'https://corona.lmao.ninja/';
+    const endpoint = 'https://corona.lmao.ninja';
+    const uriPrefix = 'v3/covid-19';
+    
+    const baseURL = `${endpoint}/${uriPrefix}/`;
 
     const client = axios.create({
         baseURL,

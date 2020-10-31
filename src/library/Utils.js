@@ -7,7 +7,8 @@ export const parseJSON = (content) => {
     return true;
 };
 
-export const numWithCommas = x => x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
+// export const numWithCommas = x => x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0;
+export const numWithCommas = x => x.toString();
 
 export const objectToArray = (obj) => {
     return Object.keys(obj).map(function(key) {

@@ -1,9 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { StyleSheet, Text, View, Modal, TouchableOpacity, ImageBackground, ScrollView, Dimensions, Image } from "react-native";
-
-import { SplashScreen } from 'expo';
-import ElevatedView from 'react-native-elevated-view';
-// import { Container, Content } from "native-base";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
 
 import { fetchAll, fetchCountries } from "../api";
 import { colors, images } from "../config";
@@ -16,15 +12,7 @@ import Picker from "../components/Picker";
 import ErrorScreen from "../components/ErrorScreen";
 import { MainCounter, MajorCounters, CounterSection } from "../components/Home";
 
-const {height, width} = Dimensions.get('window');
-
 // const Picker = lazy(() => import("../components/Picker"));
-
-const defaultRegion = {
-	iso: 'global',
-	name: 'Global',
-	flag: 'https://i2x.ai/wp-content/uploads/2018/01/flag-global.jpg',
-};
 
 // TODO: Show content Loader until Region value is not set
 // TODO: Stop Picker component re-rendering on Tap (Open)
@@ -51,13 +39,8 @@ class Home extends React.Component {
 
 		const {region, countryOptions, showCountrySelection, toggleRegionSelector, changeCountry, loading} = this.context;
 
-		// let _regionIsoX = 'iso' in region ? region.iso:region;
-		// console.log('_regionIsoX:', _regionIsoX);
-
-		// let _regionIso = 'ALB';
 		// Getting selected country's index
 		let _selectedCountryIndex = Object.keys(region).length > 0 ? this.getCountryOptionsIndex(region.iso):0;
-		// console.log('countryOptions',countryOptions);
 
 		return <Picker
 			options={countryOptions}
@@ -92,18 +75,24 @@ class Home extends React.Component {
 		/>;
 	};
 
+	_renderContentPlaceHolder(){
+		return <View style={styles.homePlaceHolderContainer}>
+			<ActivityIndicator size="large"/>
+		</View>
+	}
+
 	_renderContent() {
 
 		const {loading, region, repError} = this.context;
 
-		// return this._showError();
 		if(repError === true) return this._showError();
 		
-		if(Object.keys(region).length === 0) return null;
+		// console.log('region:',region);
+		if(Object.keys(region).length === 0) return this._renderContentPlaceHolder();
 
-		const { updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = region;
+		const {updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = region;
 
-		// console.log('this.context.region', this.context.region);
+		console.log('region:', region);
 
 		let _majorCounters = {
 			recovered: numWithCommas(recovered), 
@@ -169,16 +158,15 @@ class Home extends React.Component {
 
 	render() {
 
-		if(!this.context) return null;
-
 		const {loading = false} = this.context;
 
 		return <ScrollView 
-			style={styles.container} 
+			style={styles.container}
+			contentContainerStyle={{flexGrow: 1}}
 			showsVerticalScrollIndicator={false}>
 				<Loader visible={loading}/>
 				{this._renderContent()}
-		</ScrollView>
+		</ScrollView>;
 	}
 };
 
@@ -187,7 +175,12 @@ export default Home;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// paddingBottom: 10,
+	},
+	homePlaceHolderContainer:{
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#fff',
 	},
 	majorCountersContainer:{
 		// backgroundColor: '#e2e1e0',
