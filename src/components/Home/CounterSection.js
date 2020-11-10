@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: '#717171',
+        fontFamily: 'Roboto',
         // color: '#1565C0',
         // color: colors.main,
     },
@@ -157,7 +158,6 @@ const styles = StyleSheet.create({
         width: '50%',
         paddingVertical: standardPadding - 5,
         paddingHorizontal: standardPadding,
-        alignItems: 'flex-start',
     },
     counterItemRight: {
         paddingLeft: 30,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     },
     counterItemValue: {
         color: '#616161',
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: 'bold',
         // textAlign: 'center',
     },

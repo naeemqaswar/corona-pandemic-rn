@@ -4,7 +4,8 @@ const showRequestLogs = false;
 
 const request = async function (options, isHeader = false) {
 
-    const endpoint = 'https://corona.lmao.ninja';
+    // const endpoint = 'https://corona.lmao.ninja';
+    const endpoint = 'https://disease.sh';
     const uriPrefix = 'v3/covid-19';
     
     const baseURL = `${endpoint}/${uriPrefix}/`;

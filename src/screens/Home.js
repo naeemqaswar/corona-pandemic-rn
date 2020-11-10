@@ -1,6 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
 
+import Moment from 'moment';
+
 import { fetchAll, fetchCountries } from "../api";
 import { colors, images } from "../config";
 import { Storage } from "../library/helpers";
@@ -57,10 +59,12 @@ class Home extends React.Component {
 
 		if(!timestamp) return null;
 
-		let _updateDateTime = new Date(timestamp).toUTCString();
+		// let _updateDateTime = new Date(timestamp).toUTCString();
+		let _updateDateTime = new Date(timestamp);
+		var formattedDate = Moment(_updateDateTime).format('MMMM Do YYYY, h:mm:ss a');
 
 		return <View style={styles.lastUpdatedWrapper}>
-			<Text style={styles.lastUpdatedText}>Last updated: {_updateDateTime}</Text>
+			<Text style={styles.lastUpdatedText}>Last updated: {formattedDate}</Text>
 		</View>
 	}
 
@@ -92,7 +96,7 @@ class Home extends React.Component {
 
 		const {updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = region;
 
-		console.log('region:', region);
+		// console.log('region:', region);
 
 		let _majorCounters = {
 			recovered: numWithCommas(recovered), 
@@ -141,7 +145,13 @@ class Home extends React.Component {
 		];
 
 		let _counterSections = _countersCollections.map(({head, subHead = '', icon, counters}, index) => (
-			<CounterSection key={index} head={head} subHead={subHead} icon={icon} list={counters}/>
+			<CounterSection 
+				key={index} 
+				head={head} 
+				subHead={subHead} 
+				icon={icon} 
+				list={counters}
+			/>
 		));
 
 		// TODO: Add last updated text at bottom of screen

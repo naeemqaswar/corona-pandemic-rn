@@ -18,6 +18,7 @@
     "expo-font": "~8.1.0",
     "expo-secure-store": "~8.1.0",
     "lottie-react-native": "~2.6.1",
+    "moment": "^2.29.1",
     "native-base": "^2.13.12",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

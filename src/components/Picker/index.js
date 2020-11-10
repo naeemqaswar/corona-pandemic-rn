@@ -19,15 +19,24 @@ const Picker = (props) => {
     const [listingOptions, setListingOptions] = useState(options);
 
     useEffect(()=>{
-        setListingOptions(options);
-    }, [options.length]);
-
-    useEffect(()=>{
         // Excluding Selected Region
         if(options.length > 0){
             setListingOptions(options.filter((item, index) => index !== selected ));
         }
-    }, [selected]);
+    }, [selected, options.length]);
+
+    // useEffect(()=>{
+    //     setListingOptions(options);
+    //     console.log('options.length:', options.length);
+    //     console.log('selected:', selected);
+    // }, [options.length]);
+
+    // useEffect(()=>{
+    //     // Excluding Selected Region
+    //     if(options.length > 0){
+    //         setListingOptions(options.filter((item, index) => index !== selected ));
+    //     }
+    // }, [selected]);
 
     const getCountryCode = ({code, name}) => code ? code: name;
 

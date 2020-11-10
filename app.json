@@ -22,11 +22,11 @@
       "**/*"
     ],
     "android": {
-      "package": "com.nqaswar.covid19pendemic",
+      "package": "com.nqaswar.coronapandemic",
       "versionCode": 1
     },
     "ios": {
-      "bundleIdentifier": "com.nqaswar.covid19pendemic",
+      "bundleIdentifier": "com.nqaswar.coronapandemic",
       "buildNumber": "1.0.0",
       "supportsTablet": false
     }

@@ -174,6 +174,7 @@ export default class DataContextProvider extends Component {
 
 		this.setState({
 			region: _selectedCountry,		// Setting selected country data
+			savedRegion: _selectedCountry,
 			showCountrySelection: false,	// Closing Country selection list
 		});
 	};
