@@ -1,7 +1,8 @@
 import React, { Component, createContext } from 'react';
 import { Text, View } from 'react-native';
-import {AppLoading, SplashScreen} from 'expo';
+import {AppLoading} from 'expo';
 import { Asset } from 'expo-asset';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { fetchAll, fetchCountries } from "../api";
 import { images } from "../config";
@@ -35,7 +36,7 @@ export default class DataContextProvider extends Component {
     }
 
 	async componentDidMount(){
-		SplashScreen.preventAutoHide();
+		await SplashScreen.preventAutoHideAsync();
 
         this._toggleRegionSelector = this._toggleRegionSelector.bind(this);
 		this._refreshContent = this._refreshContent.bind(this);
@@ -61,7 +62,7 @@ export default class DataContextProvider extends Component {
 		await Promise.all([_fetchApiContent, _allImageResources]);
 		
 		// Hiding Splash Screen
-		SplashScreen.hide();
+		await SplashScreen.hideAsync();
 	};
 
 	async _fetchContent() {

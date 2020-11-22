@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {YellowBox} from 'react-native';
+import {LogBox} from 'react-native';
 
 import ErrorBoundary from 'react-native-error-boundary'
 
@@ -10,11 +10,10 @@ const App = () => {
 
 	useEffect(()=>{
 
-		YellowBox.ignoreWarnings([
+		LogBox.ignoreLogs([
 			'Remote debugger is in a background',
 			'Debugger and device times have drifted by more than 60s',
 		]);
-
 	}, []);
 
 	return <ErrorBoundary>
