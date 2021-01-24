@@ -17,6 +17,7 @@
     "expo": "^39.0.0",
     "expo-font": "~8.3.0",
     "expo-secure-store": "~9.2.0",
+    "expo-splash-screen": "~0.6.2",
     "lottie-react-native": "~2.6.1",
     "moment": "^2.29.1",
     "native-base": "^2.13.12",
@@ -31,10 +32,7 @@
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
-    "react-native-screens": "~2.10.1",
-    "react-native-spinkit": "^1.5.0",
-    "react-native-web": "~0.13.7",
-    "expo-splash-screen": "~0.6.2"
+    "react-native-screens": "~2.10.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^8.3.0",
