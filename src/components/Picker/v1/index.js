@@ -8,7 +8,6 @@ import styles from './style';
 const ITEM_HEIGHT = 47;
 const ITEM_SEPARATOR_HEIGHT = 1;
 
-// TODO: Implement PURE Component
 const PickerV1 = (props) => {
     let listRef;
 
@@ -21,14 +20,12 @@ const PickerV1 = (props) => {
 
             setTimeout(() => listRef.scrollToIndex({
                 index: selected,
-                // animated: true,
                 viewPosition: 0
             }), 1);
         }
         
     }, [display]);
 
-    // TODO: Implement Selected item Feature
     const pickerItem = ({index, item}) => {
         const {code, name, flag} = item;
 
@@ -66,7 +63,6 @@ const PickerV1 = (props) => {
 
     const getCountryCode = ({code, name}) => code ? code: name;
 
-    // TODO: Implement loading indicator
     const renderListing = () => {
 
         return <SafeAreaView style={styles.pickerContent}>

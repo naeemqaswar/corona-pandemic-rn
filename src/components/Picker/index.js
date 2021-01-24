@@ -9,8 +9,6 @@ import styles from './style';
 const ITEM_HEIGHT = 47;
 const ITEM_SEPARATOR_HEIGHT = 1;
 
-// TODO: Make Picker FullScreen and search
-// TODO: Implement PURE Component
 const Picker = (props) => {
     let listRef;
 
@@ -31,7 +29,6 @@ const Picker = (props) => {
         <View style={[styles.pickerItemSeparator, {height: ITEM_SEPARATOR_HEIGHT}]}></View>
     </View>;
 
-    // TODO: Implement Selected item Feature
     const pickerItem = ({item}, isSelected = false) => {
         const {code, name, flag} = item;
 
@@ -42,7 +39,6 @@ const Picker = (props) => {
         if(_itemSelected) _itemStyles.push(styles.pickerItemSelected);
 
         const _itemTextStyles = [styles.pickerItemText];
-        // if(_itemSelected) _itemTextStyles.push({color: mainColor});
 
         const _itemTextWrapperStyles = [styles.pickerItemTextWrapper];
         if(_itemSelected) _itemTextWrapperStyles.push({width: '76%'});
@@ -53,8 +49,6 @@ const Picker = (props) => {
 
         let _flagImage = flag ? <View style={styles.pickerItemImageWrapper}>
                 <Image style={styles.pickerItemImage} source={{uri: flag}} />
-                {/* <Image style={styles.pickerItemImage} source={{uri: 'https://cdn.countryflags.com/thumbs/sweden/flag-round-250.png'}} /> */}
-                {/* <Image style={styles.pickerItemImage} source={{uri: `https://cdn.countryflags.com/thumbs/${name.toLowerCase()}/flag-round-250.png`}} /> */}
             </View> : null;
 
         let _itemContent = <View style={_itemStyles}>
@@ -66,11 +60,6 @@ const Picker = (props) => {
         </View>;
 
         let _itemContentWrapped = <View style={styles.pickerItemWrapper}>{_itemContent}</View>
-        // if(_itemSelected){
-        //     _itemContentWrapped = <ElevatedView style={styles.pickerItemWrapper} elevation={0}>
-        //         {_itemContent}
-        //     </ElevatedView>
-        // }
 
         return <TouchableWithoutFeedback key={_countryCode} onPress={() => onSelection(_countryCode)}>
             {_itemContentWrapped}
@@ -82,8 +71,6 @@ const Picker = (props) => {
 
         if(!_selectedOption || Object.keys(_selectedOption).length === 0) return null;
 
-        // console.log('_selectedOption', _selectedOption);
-
         return <View style={styles.pickerItemSelectedContainer}>
             <Text style={[styles.groupTitle, {marginBottom: 10}]}>Selected</Text>
             {pickerItem({item: _selectedOption}, true)}
@@ -91,11 +78,9 @@ const Picker = (props) => {
         </View>;
     };
 
-    // TODO: Implement loading indicator
     const renderListing = () => {
 
         return <View style={styles.pickerContent}>
-            {/* {renderSelected()} */}
             <SafeAreaView>
                 <FlatList
                     ref={ ref => listRef = ref }

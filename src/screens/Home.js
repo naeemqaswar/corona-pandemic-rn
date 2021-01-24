@@ -14,8 +14,6 @@ import Picker from "../components/Picker";
 import ErrorScreen from "../components/ErrorScreen";
 import { MainCounter, MajorCounters, CounterSection } from "../components/Home";
 
-// const Picker = lazy(() => import("../components/Picker"));
-
 class Home extends React.Component {
 
 	static contextType = DataContext;	// Referencing context value
@@ -56,7 +54,6 @@ class Home extends React.Component {
 
 		if(!timestamp) return null;
 
-		// let _updateDateTime = new Date(timestamp).toUTCString();
 		let _updateDateTime = new Date(timestamp);
 		var formattedDate = Moment(_updateDateTime).format('MMMM Do YYYY, h:mm:ss a');
 
@@ -88,12 +85,9 @@ class Home extends React.Component {
 
 		if(repError === true) return this._showError();
 		
-		// console.log('region:',region);
 		if(Object.keys(region).length === 0) return this._renderContentPlaceHolder();
 
 		const {updated, cases, recovered, deaths, critical, todayCases, todayDeaths, tests, testsPerOneMillion, casesPerOneMillion, deathsPerOneMillion} = region;
-
-		// console.log('region:', region);
 
 		let _majorCounters = {
 			recovered: numWithCommas(recovered), 

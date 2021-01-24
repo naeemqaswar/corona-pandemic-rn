@@ -72,11 +72,9 @@ export default class DataContextProvider extends Component {
 		]);
 	}
 
-	// TODO: Handle all requests with promise.all 
 	_fetchGlobalData = () => {
 
 		return fetchAll((error, response) => {
-			// console.log('fetchAll response:', response);
             
 			if(error === true) { 
 				this.setState({repError: true});
