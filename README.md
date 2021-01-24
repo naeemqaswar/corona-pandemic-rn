@@ -5,10 +5,18 @@
 
 Corona Pandemic is a count tracking app made with **React Native - Expo** to provide worldwide information related to Covid-19. The api used for the data can be found [here](https://corona.lmao.ninja/docs/).
 
+## 🚀 Technologies
+
+  - [React Native](https://reactnative.dev/)
+  - [Expo](https://expo.io/)
+  - [Context API](https://reactjs.org/docs/context.html)
+
 ## Demo
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/1-splash.jpg" width="260" height="538"/>&nbsp;<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/2-home.jpg" width="260" height="538"/>&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/3-change-region.jpg" width="260" height="538"/>
+<!-- <img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/1-splash.jpg" width="260" height="538"/>&nbsp;&nbsp; -->
+<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/2-home.jpg" width="260" height="538"/>&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/3-change-region.jpg" width="260" height="538"/>
 </div>
 
 ## Features
@@ -19,12 +27,6 @@ Corona Pandemic is a count tracking app made with **React Native - Expo** to pro
   - Average cases per million
   - Tests conducted
   - Setting a default country
-
-## 🚀 Technologies
-
-  - [React Native](https://reactnative.dev/)
-  - [Expo](https://expo.io/)
-  - [Context API](https://reactjs.org/docs/context.html)
 
 ## 🤝 Contribute
 
