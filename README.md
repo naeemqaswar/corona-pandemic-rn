@@ -3,21 +3,24 @@
 </p>
 
 
-Corona Pandemic is a count tracking app made with **React Native - Expo** to provide worldwide information related to Covid-19. The api used for the data can be found [here](https://corona.lmao.ninja/docs/).
+Corona Pandemic is a count tracking app made with **React Native - Expo** to provide worldwide information related to Covid-19. The api used for the data can be found [here](https://corona.lmao.ninja/docs/). <!-- **The release apk is available under the release tags. It's also available on this drive link - [Corona Pandemic APK](#)** -->
 
-## 🚀 Technologies
-
-  - [React Native](https://reactnative.dev/)
-  - [Expo](https://expo.io/)
-  - [Context API](https://reactjs.org/docs/context.html)
-
-## Demo
+## Preview
 
 <div align="center">
+<!-- ### Add Demo Gif here... -->
+<!-- ### Wrap screenshots with black border around or elevation -->
 <!-- <img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/1-splash.jpg" width="260" height="538"/>&nbsp;&nbsp; -->
 <img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/2-home.jpg" width="260" height="538"/>&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/3-change-region.jpg" width="260" height="538"/>
 </div>
+
+## Stack
+
+  - [React Native](https://reactnative.dev/)
+  - [Expo](https://expo.io/)
+  - [Context API](https://reactjs.org/docs/context.html)
+  - [React Navigation](https://reactnavigation.org/)
 
 ## Features
 
@@ -28,10 +31,10 @@ Corona Pandemic is a count tracking app made with **React Native - Expo** to pro
   - Tests conducted
   - Setting a default country
 
-## 🤝 Contribute
+## Contribute
 
 Fork the repository and push the changes to the **master** branch. You can submit a pull request, if your code passes the review it will be merged to the main branch.
 
-## 📝 License
+## License
 
 Licensed under the [MIT License](./LICENSE).
