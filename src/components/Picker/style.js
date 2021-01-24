@@ -44,6 +44,7 @@ export default StyleSheet.create({
     },
     pickerHeaderText: {
         fontWeight: 'bold',
+        fontFamily: 'Roboto',
         fontSize: 23,
         color: '#7b7b7b',
     },
