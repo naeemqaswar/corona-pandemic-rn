@@ -16,9 +16,6 @@ import { MainCounter, MajorCounters, CounterSection } from "../components/Home";
 
 // const Picker = lazy(() => import("../components/Picker"));
 
-// TODO: Show content Loader until Region value is not set
-// TODO: Stop Picker component re-rendering on Tap (Open)
-// TODO: Implement PURE Component
 class Home extends React.Component {
 
 	static contextType = DataContext;	// Referencing context value
@@ -154,7 +151,6 @@ class Home extends React.Component {
 			/>
 		));
 
-		// TODO: Add last updated text at bottom of screen
 		return <View style={styles.container}>
 			<MainCounter value={numWithCommas(cases) } />
 			<MajorCounters counters={_majorCounters} />

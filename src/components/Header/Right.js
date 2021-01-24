@@ -34,7 +34,7 @@ const Right = (props) => {
     };
 
     return <View style={styles.container}>
-            {_renderButton(<Octicons name="sync" size={37} color={colors.secondary} />, () => refreshContent())}
+            {_renderButton(<Octicons name="sync" size={37} color={colors.secondary} />, refreshContent)}
             {_renderButton(regionBtnContent(), () => toggleRegionSelector(true))}
         </View>;
 }

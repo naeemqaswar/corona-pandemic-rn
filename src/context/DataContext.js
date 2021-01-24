@@ -46,30 +46,30 @@ export default class DataContextProvider extends Component {
  
 	async _appBootstrap() {
 
-		// Loading region info to State
+		// Fetching local region selection
 		let _storedRegion = await Storage.get('region');
-		
-		this.setState({savedRegion: _storedRegion ? JSON.parse(_storedRegion):""});
-		
-		// Fetching all API content
-		const _fetchApiContent = await this._fetchContent();
 
 		// Cashing all image resources
 		const _allImageResources = objectToArray(images).map(image => {
 			return Asset.fromModule(image).downloadAsync();
 		});
 
-		await Promise.all([_fetchApiContent, _allImageResources]);
+		await Promise.all([this._fetchContent(), _allImageResources]);
+		
+		this.setState({
+			savedRegion: _storedRegion ? JSON.parse(_storedRegion) : "",
+            loading: false,
+		});
 		
 		// Hiding Splash Screen
 		await SplashScreen.hideAsync();
 	};
 
 	async _fetchContent() {
-
-		await this._fetchGlobalData();
-        
-		await this._getCountryData();
+		return Promise.all([
+			this._fetchGlobalData(), 
+			this._getCountryData()
+		]);
 	}
 
 	// TODO: Handle all requests with promise.all 
@@ -147,18 +147,17 @@ export default class DataContextProvider extends Component {
 			_organizedData['region'] = _countryInfo ? _countryInfo:this.state.globalData;
 		};
 
-		this.setState({
-            ..._organizedData,
-            loading: false,
-        });
+		this.setState({ ..._organizedData });
 	};
 
     async _refreshContent(){
-        this.setState({loading: true});
+		this.setState({loading: true});
 
 		await this._fetchContent();
 		
-        this.setState({loading: false});
+		setTimeout(() => {
+			this.setState({loading: false});
+		}, 1000);
     }
 
 	_handleCountryChange = (countryCode) => {
