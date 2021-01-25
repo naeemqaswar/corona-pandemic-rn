@@ -9,7 +9,7 @@ Corona Pandemic is a count tracking app made with **React Native - Expo** to pro
 ## Preview
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/app-screens.jpg" height="500"/>
+<img src="https://raw.githubusercontent.com/naeemqaswar/CoronaPandemic/master/demo/screens/app-screens.jpg"/>
 </div>
 
 ## Stack
