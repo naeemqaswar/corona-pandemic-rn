@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Corona Pandemic",
-    "slug": "CoronaPandemic",
+    "name": "Corona Pandemic React-Native",
+    "slug": "CoronaPandemicRN",
     "platforms": [
       "ios",
       "android",
