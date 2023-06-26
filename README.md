@@ -3,8 +3,9 @@
 </p>
 
 
-Corona Pandemic is a count tracking app made with **React Native - Expo** to provide worldwide information related to Covid-19. The api used for the data can be found [here](https://corona.lmao.ninja/docs/). 
-**The release apk is available under this drive link - [Corona Pandemic APK](https://drive.google.com/file/d/1UXiueCp9TSuyhVualTm97QGCZFbqb5zW/view?usp=sharing)**
+Corona Pandemic is a count tracking app made with **React Native - Expo** to provide worldwide information related to Covid-19. An open-source [API](https://corona.lmao.ninja/docs/) is used to fetch all disease-related statistics, made available by **disease.sh**.
+
+**Demo - [Corona Pandemic APK](https://drive.google.com/file/d/1UXiueCp9TSuyhVualTm97QGCZFbqb5zW/view?usp=sharing)**
 
 ## Preview
 
